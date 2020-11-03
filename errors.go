@@ -34,55 +34,6 @@ type Op string
 // separator -> new line plus tabulator to intend error if previuos not nil
 var Separator = ":\n\t"
 
-type Kind uint8
-
-// Kinds of errors.
-const (
-	Undefined Kind = iota // Undefined error.
-	// ENDURE error codes
-	Register
-	Providers
-	Logger
-	ArgType
-	Init
-	Serve
-	Unsupported
-	Disabled
-
-	Traverse
-	FunctionCall
-
-)
-
-func (k Kind) String() string {
-	switch k {
-	case Undefined:
-		return "UNDEF"
-	case Register:
-		return "Register error"
-	case Providers:
-		return "Providers error"
-	case Logger:
-		return "Logger error"
-	case Init:
-		return "Init error"
-	case Serve:
-		return "Serve error"
-	case Disabled:
-		return "Vertex disabled"
-	case ArgType:
-		return "Wrong arg type, or return type"
-	case Traverse:
-		return "Traverse error"
-	case FunctionCall:
-		return "Function call error"
-	case Unsupported:
-		return "Unsupported"
-	default:
-		return "UNDEF"
-	}
-}
-
 // E builds an error value from its arguments.
 func E(args ...interface{}) error {
 	e := &Error{}
