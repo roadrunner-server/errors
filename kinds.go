@@ -27,7 +27,7 @@ const (
 // RR kinds
 // 200 - 299
 const (
-	RR Kind = iota + 200 // just sample, replace when add first RR error kind
+	ErrWatcherStopped Kind = iota + 200
 )
 
 func (k Kind) String() string {
@@ -56,6 +56,8 @@ func (k Kind) String() string {
 		return "Unsupported"
 	case TimeOut:
 		return "Timeout"
+	case ErrWatcherStopped:
+		return "Workers watcher stopped"
 	default:
 		return "UNDEF"
 	}
