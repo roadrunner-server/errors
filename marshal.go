@@ -11,11 +11,13 @@ func (e *Error) MarshalAppend(b []byte) []byte {
 	}
 
 	b = appendString(b, string(e.Op))
+	b = appendString(b, e.Raised)
 
 	var tmp [16]byte
 	N := binary.PutVarint(tmp[:], int64(e.Kind))
 	b = append(b, tmp[:N]...)
 	b = MarshalErrorAppend(e.Err, b)
+
 	return b
 }
 
@@ -49,6 +51,12 @@ func (e *Error) UnmarshalBinary(b []byte) error {
 	if data != nil {
 		e.Op = Op(data)
 	}
+
+	data, b = getBytes(b)
+	if data != nil {
+		e.Raised = string(data)
+	}
+
 	k, N := binary.Varint(b)
 	e.Kind = Kind(k)
 	b = b[N:]
@@ -72,8 +80,11 @@ func UnmarshalError(b []byte) error {
 		return Str(string(data))
 	case 'E':
 		var err Error
-		err.UnmarshalBinary(b)
+		_ = err.UnmarshalBinary(b)
 		return &err
+	case 'T':
+		println("time")
+		return nil
 	default:
 		log.Printf("Unmarshal error: corrupt data %q", b)
 		return Str(string(b))

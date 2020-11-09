@@ -32,6 +32,10 @@ func TestMarshal(t *testing.T) {
 	if in.Err.Error() != out.Err.Error() {
 		t.Errorf("expected Err %q; got %q", in.Err, out.Err)
 	}
+	// time
+	if in.Raised != out.Raised {
+		t.Errorf("expected time %s; got %s", in.Raised, out.Raised)
+	}
 }
 
 func TestSeparator(t *testing.T) {

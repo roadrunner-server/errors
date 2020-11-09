@@ -11,7 +11,6 @@ import (
 
 type stack struct {
 	callers []uintptr
-	// TODO(adg): add time of creation
 }
 
 func (e *Error) populateStack() {
@@ -98,7 +97,7 @@ func (e *Error) printStack(b *bytes.Buffer) {
 		// Do the printing.
 		appendStrToBuf(b, Separator)
 		file, line := fn.FileLine(pc)
-		fmt.Fprintf(b, "%v:%d: ", file, line)
+		_, _ = fmt.Fprintf(b, "%v:%d: ", file, line)
 		if trim > 0 {
 			b.WriteString("...")
 		}

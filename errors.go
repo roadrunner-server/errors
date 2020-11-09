@@ -7,12 +7,14 @@ import (
 	"fmt"
 	"log"
 	"runtime"
+	"time"
 )
 
 type Error struct {
-	Op   Op
-	Kind Kind
-	Err  error
+	Op     Op
+	Kind   Kind
+	Err    error
+	Raised string
 
 	// Stack information
 	stack
@@ -22,6 +24,7 @@ func (e *Error) isZero() bool {
 	return e.Op == "" && e.Kind == 0 && e.Err == nil
 }
 
+// interface satisfaction static check
 var (
 	_ error                      = (*Error)(nil)
 	_ encoding.BinaryUnmarshaler = (*Error)(nil)
@@ -31,12 +34,14 @@ var (
 // Op describes an operation
 type Op string
 
-// separator -> new line plus tabulator to intend error if previuos not nil
+// separator -> new line plus tabulator to intend error if previous not nil
 var Separator = ":\n\t"
 
 // E builds an error value from its arguments.
 func E(args ...interface{}) error {
 	e := &Error{}
+	e.Raised = time.Now().Format(time.RFC3339)
+
 	if len(args) == 0 {
 		msg := "errors.E called with 0 args"
 		_, file, line, ok := runtime.Caller(1)
