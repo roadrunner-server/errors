@@ -36,8 +36,8 @@ jobs:
           go test . -race -v -coverprofile=release.txt -covermode=atomic
 
       - name: Run code coverage
-      - uses: actions/checkout@master
-      - uses: codecov/codecov-action@v1
+        uses: actions/checkout@master
+        uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           files: debug.txt, release.txt # optional
