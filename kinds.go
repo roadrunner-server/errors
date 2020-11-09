@@ -7,6 +7,7 @@ type Kind uint8
 const (
 	Undefined Kind = iota
 	TimeOut
+	Network
 )
 
 // Endure Kinds of errors.
@@ -58,6 +59,8 @@ func (k Kind) String() string {
 		return "Timeout"
 	case ErrWatcherStopped:
 		return "Workers watcher stopped"
+	case Network:
+		return "Network"
 	default:
 		return "UNDEF"
 	}
