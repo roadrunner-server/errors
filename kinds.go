@@ -29,6 +29,7 @@ const (
 // 200 - 299
 const (
 	ErrWatcherStopped Kind = iota + 200
+	Exec
 )
 
 func (k Kind) String() string {
@@ -61,6 +62,8 @@ func (k Kind) String() string {
 		return "Workers watcher stopped"
 	case Network:
 		return "Network"
+	case Exec:
+		return "Exec"
 	default:
 		return "UNDEF"
 	}

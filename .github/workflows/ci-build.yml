@@ -45,15 +45,6 @@ jobs:
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
 
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-#        run: |
-#          if [[ "$CODECOV_TOKEN" != "" ]]; then
-#            curl https://codecov.io/bash -o codecov-bash
-#            chmod +x codecov-bash
-#            ./codecov-bash -f debug.txt
-#            ./codecov-bash -f release.txt
-#          fi
 
   golangci-check:
     name: runner / golangci-lint
