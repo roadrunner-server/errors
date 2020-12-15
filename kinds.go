@@ -32,6 +32,9 @@ const (
 	ErrSoftJob
 	WorkerAllocate
 	NoFreeWorkers
+	// Reload plugin
+	Skip
+	NoWalkerConfig
 )
 
 func (k Kind) String() string {
@@ -70,6 +73,10 @@ func (k Kind) String() string {
 		return "NoFreeWorkers"
 	case WorkerAllocate:
 		return "WorkerAllocate"
+	case Skip:
+		return "Skip"
+	case NoWalkerConfig:
+		return "NoWalkerConfig"
 	default:
 		return "UNDEF"
 	}
