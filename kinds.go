@@ -1,6 +1,8 @@
 package errors
 
-type Kind uint8
+import "fmt"
+
+type Kind uint16
 
 // General
 // 0 - 99
@@ -9,6 +11,20 @@ const (
 	TimeOut
 	Network
 )
+
+// general errors
+func generalSwitch(k Kind) string {
+	switch k {
+	case Undefined:
+		return "Undefined"
+	case TimeOut:
+		return "Timeout"
+	case Network:
+		return "Network"
+	default:
+		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
+	}
+}
 
 // Endure Kinds of errors.
 // 100 - 199
@@ -25,22 +41,9 @@ const (
 	FunctionCall
 )
 
-// RR kinds
-// 200 - 299
-const (
-	ErrWatcherStopped Kind = iota + 200
-	ErrSoftJob
-	WorkerAllocate
-	NoFreeWorkers
-	// Reload plugin
-	Skip
-	NoWalkerConfig
-)
-
-func (k Kind) String() string {
+// error kinds related to the endure
+func endureSwitch(k Kind) string {
 	switch k {
-	case Undefined:
-		return "UNDEF"
 	case Register:
 		return "Register error"
 	case Providers:
@@ -61,23 +64,87 @@ func (k Kind) String() string {
 		return "Function call error"
 	case Unsupported:
 		return "Unsupported"
-	case TimeOut:
-		return "Timeout"
-	case ErrWatcherStopped:
+	default:
+		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
+	}
+}
+
+// RR core kinds
+// 200 - 299
+const (
+	WatcherStopped Kind = iota + 200
+	SoftJob
+	WorkerAllocate
+	NoFreeWorkers
+)
+
+// error kinds related to the rr core
+func rrSwitch(k Kind) string {
+	switch k {
+	case WatcherStopped:
 		return "Workers watcher stopped"
-	case Network:
-		return "Network"
-	case ErrSoftJob:
+	case SoftJob:
 		return "SoftJobError"
 	case NoFreeWorkers:
 		return "NoFreeWorkers"
 	case WorkerAllocate:
 		return "WorkerAllocate"
-	case Skip:
-		return "Skip"
+	default:
+		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
+	}
+}
+
+// RR plugins kinds
+// 300 - 399
+const (
+	// kv plugin
+	EmptyKey Kind = iota + 300
+	EmptyItem
+	NoKeys
+	NoSuchBucket
+	BucketShouldBeSet
+	NoConfig
+
+	// Reload plugin
+	SkipFile
+	NoWalkerConfig
+)
+
+// error kinds related to the rr plugins
+func rrPluginsSw(k Kind) string {
+	switch k {
+	case SkipFile:
+		return "SkipFile"
 	case NoWalkerConfig:
 		return "NoWalkerConfig"
+	case EmptyKey:
+		return "key can't be empty string"
+	case EmptyItem:
+		return "empty Item"
+	case NoKeys:
+		return "should provide at least 1 key"
+	case NoSuchBucket:
+		return "no such bucket"
+	case BucketShouldBeSet:
+		return "bucket should be set"
+	case NoConfig:
+		return "no config provided"
 	default:
-		return "UNDEF"
+		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
+	}
+}
+
+func (k Kind) String() string {
+	switch {
+	case k < 100: // 0-99 general
+		return generalSwitch(k)
+	case k >= 100 && k < 200: // 100-199, endure
+		return endureSwitch(k)
+	case k >= 200 && k < 300: // 200-299, rr
+		return rrSwitch(k)
+	case k >= 300 && k < 400: // 300-399, plugins
+		return rrPluginsSw(k)
+	default:
+		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
 }
