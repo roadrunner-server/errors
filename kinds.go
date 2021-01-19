@@ -92,6 +92,12 @@ func rrSwitch(k Kind) string {
 		return "NoFreeWorkers"
 	case WorkerAllocate:
 		return "WorkerAllocate"
+	case ExecTTL:
+		return "ExecTTL"
+	case IdleTTL:
+		return "IdleTTL"
+	case TTL:
+		return "TTL"
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
