@@ -76,6 +76,9 @@ const (
 	SoftJob
 	WorkerAllocate
 	NoFreeWorkers
+	ExecTTL
+	IdleTTL
+	TTL
 )
 
 // error kinds related to the rr core
