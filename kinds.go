@@ -76,6 +76,8 @@ const (
 	SoftJob
 	WorkerAllocate
 	NoFreeWorkers
+	Encode
+	Decode
 	ExecTTL
 	IdleTTL
 	TTL
@@ -98,6 +100,10 @@ func rrSwitch(k Kind) string {
 		return "IdleTTL"
 	case TTL:
 		return "TTL"
+	case Encode:
+		return "Encode"
+	case Decode:
+		return "Decode"
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
