@@ -10,6 +10,7 @@ const (
 	Undefined Kind = iota
 	TimeOut
 	Network
+	FileNotFound
 )
 
 // general errors
@@ -21,6 +22,8 @@ func generalSwitch(k Kind) string {
 		return "Timeout"
 	case Network:
 		return "Network"
+	case FileNotFound:
+		return "FileNotFound"
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
