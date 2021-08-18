@@ -44,24 +44,29 @@ func TestDebug(t *testing.T) {
 
 type T struct{}
 
+//go:noinline
 func printErr(t *testing.T, err error) string {
 	return err.Error()
 }
 
+//go:noinline
 func func1() error {
 	var t T
 	return t.func2()
 }
 
+//go:noinline
 func (T) func2() error {
 	o := Op("func2 invoke func3")
 	return E(o, func3())
 }
 
+//go:noinline
 func func3() error {
 	return func4()
 }
 
+//go:noinline
 func func4() error {
 	o := Op("func4 operation")
 	return E(o, Serve, Str("error in action"))

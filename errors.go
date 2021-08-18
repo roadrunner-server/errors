@@ -122,6 +122,14 @@ func (e *Error) Error() string {
 	return b.String()
 }
 
+// pad appends str to the buffer if the buffer already has some data.
+func pad(b *bytes.Buffer, str string) {
+	if b.Len() == 0 {
+		return
+	}
+	b.WriteString(str)
+}
+
 // errors.New
 func Str(text string) error {
 	return &errorString{text}
