@@ -10,7 +10,7 @@ import (
 )
 
 var errorLines = strings.Split(strings.TrimSpace(`
-	.*/errors/debug_test.go:\d+: github.com/spiral/errors.func1:
+	.*/errors/debug_test.go:\d+: github.com/roadrunner-server/errors.func1:
 	.*/errors/debug_test.go:\d+: ...T.func2:
 	.*/errors/debug_test.go:\d+: ...func3:
 	.*/errors/debug_test.go:\d+: ...func4: func2 invoke func3: Serve error:
