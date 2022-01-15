@@ -1,3 +1,3 @@
-module github.com/spiral/errors
+module github.com/roadrunner-server/errors
 
 go 1.17
