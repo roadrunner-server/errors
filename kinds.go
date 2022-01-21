@@ -11,6 +11,7 @@ const (
 	TimeOut
 	Network
 	FileNotFound
+	Retry
 )
 
 // general errors
@@ -24,6 +25,8 @@ func generalSwitch(k Kind) string {
 		return "Network"
 	case FileNotFound:
 		return "FileNotFound"
+	case Retry:
+		return "Retry"
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
