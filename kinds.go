@@ -12,6 +12,8 @@ const (
 	Network
 	FileNotFound
 	Retry
+	Stop
+	MaxJobs
 )
 
 // general errors
@@ -27,6 +29,11 @@ func generalSwitch(k Kind) string {
 		return "FileNotFound"
 	case Retry:
 		return "Retry"
+	case Stop:
+		return "Stop"
+	case MaxJobs:
+		return "MaxJobs"
+
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)
 	}
