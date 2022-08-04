@@ -1,4 +1,4 @@
-# errors
+# errors (internal)
 
 <p align="center">
 	<a href="https://github.com/roadrunner-server/errors/actions"><img src="https://github.com/roadrunner-server/errors/workflows/CI/badge.svg" alt=""></a>
