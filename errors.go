@@ -38,7 +38,7 @@ type Op string
 var Separator = ":\n\t"
 
 // E builds an error value from its arguments.
-func E(args ...interface{}) error {
+func E(args ...any) error {
 	e := &Error{}
 	e.Raised = time.Now().Format(time.RFC3339)
 
@@ -143,7 +143,7 @@ func (e *errorString) Error() string {
 	return e.s
 }
 
-func Errorf(format string, args ...interface{}) error {
+func Errorf(format string, args ...any) error {
 	return &errorString{fmt.Sprintf(format, args...)}
 }
 
