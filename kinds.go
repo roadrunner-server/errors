@@ -14,6 +14,7 @@ const (
 	Retry
 	Stop
 	MaxJobs
+	QueueSize
 )
 
 // general errors
@@ -33,6 +34,8 @@ func generalSwitch(k Kind) string {
 		return "Stop"
 	case MaxJobs:
 		return "MaxJobs"
+	case QueueSize:
+		return "QueueSize"
 
 	default:
 		return fmt.Sprintf("The error number is: %d, type is UNDEF", k)

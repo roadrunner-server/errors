@@ -1,5 +1,3 @@
-run:
-  go: '1.17'
 linters:
   # please, do not use `enable-all`: it's deprecated and will be removed soon.
   # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
@@ -22,9 +20,7 @@ linters:
     - nolintlint
     - rowserrcheck
     - staticcheck
-    - structcheck
     - typecheck
     - unconvert
     - unparam
-    - varcheck
     - whitespace
