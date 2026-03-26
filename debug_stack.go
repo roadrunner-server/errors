@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"runtime"
+	"slices"
 	"strings"
 )
 
@@ -24,7 +25,7 @@ func (e *Error) populateStack() {
 	i := 0
 
 	ok = false
-	for ; i < len(e.callers) && i < len(e2.callers); i++ {
+	for ; i < min(len(e.callers), len(e2.callers)); i++ {
 		// check for similar
 		if e.callers[len(e.callers)-1-i] != e2.callers[len(e2.callers)-1-i] {
 			break
@@ -33,13 +34,7 @@ func (e *Error) populateStack() {
 	}
 
 	if ok { //we have common PCs
-		e2Head := e2.callers[:len(e2.callers)-i]
-		eTail := e.callers
-
-		e.callers = make([]uintptr, len(e2Head)+len(eTail))
-
-		copy(e.callers, e2Head)
-		copy(e.callers[len(e2Head):], eTail)
+		e.callers = slices.Concat(e2.callers[:len(e2.callers)-i], e.callers)
 
 		e2.callers = nil
 	}
@@ -70,7 +65,7 @@ func (e *Error) printStack(b *bytes.Buffer) {
 	// names of the functions and their file names and line numbers.
 	var prev string // the name of the last-seen function
 	var diff bool   // do the print and error call stacks differ now?
-	for i := 0; i < len(e.callers); i++ {
+	for i := range len(e.callers) {
 		thisFrame := frame(e.callers, i)
 		name := thisFrame.Func.Name()
 

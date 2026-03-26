@@ -2,6 +2,7 @@ package errors
 
 import (
 	"bytes"
+	"cmp"
 	"encoding"
 	"errors"
 	"fmt"
@@ -61,8 +62,7 @@ func E(args ...any) error {
 			e.Kind = arg
 		case *Error:
 			// Make a copy
-			eCopy := *arg
-			e.Err = &eCopy
+			e.Err = new(*arg)
 		case error:
 			e.Err = arg
 			// add map map[string]string
@@ -116,10 +116,7 @@ func (e *Error) Error() string {
 			b.WriteString(e.Err.Error())
 		}
 	}
-	if b.Len() == 0 {
-		return "no error"
-	}
-	return b.String()
+	return cmp.Or(b.String(), "no error")
 }
 
 // pad appends str to the buffer if the buffer already has some data.
