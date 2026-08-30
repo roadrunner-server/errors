@@ -1,5 +1,5 @@
 module github.com/roadrunner-server/errors
 
-go 1.26
+go 1.27
 
-toolchain go1.26.5
+toolchain go1.27.0
